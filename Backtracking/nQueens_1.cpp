@@ -27,30 +27,33 @@ bool checkPlace(int i, int j, vector<string> &board)
     }
     return true;
 }
-void placeQueens(vector<string> & board, int i,vector<vector<string>> &store)
+int placeQueens(vector<string> & board, int i,vector<vector<string>> &store)
 {
     if(i==board.size())
     {
         store.push_back(board);
-        return;
+        return 1;
     }
+    int count =0;
     for(int j=0;j<board.size();j++)
     {
+        
         if(checkPlace(i-1,j,board))
         {
             board[i][j] = 'Q';
-            placeQueens(board,i+1,store);
+            count+=placeQueens(board,i+1,store);
             board[i][j]='.';
         }
     }
+    return count;
 }
 
 int main()
 {
-    int n=4;
+    int n=2;
     vector<string> board(n,string(n,'.'));
     vector<vector<string>> store;
-    placeQueens(board,0,store);
+    cout<<placeQueens(board,0,store)<<endl;
     for(vector<string> ans: store)
     {
         for(string row: ans)
