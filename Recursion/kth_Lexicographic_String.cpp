@@ -33,7 +33,7 @@ void kthLexographicString(char input[],int &inputSize, int &n, int &k,vector<cha
 int main()
 {
     char input[]={'a','b','c'};
-    int size=3,n=1,k=3,count=0;
+    int size=3,n=1,k=,count=0;
     string result="";
     vector<char> ar;
     char initial = ' ';
