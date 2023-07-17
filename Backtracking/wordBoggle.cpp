@@ -11,7 +11,7 @@ bool safe(int &i, int &j, int m, int n)
     return true;
 }
 
-bool wordBoggle(vector<vector<char>> &board, string &s, vector<vector<int>> &visit, int i, int j, int &index)
+bool helper(vector<vector<char>> &board, string &s, vector<vector<int>> &visit, int i, int j, int &index)
 {
     if(!safe(i,j,board.size(),board[0].size()) || visit[i][j]!=0 || board[i][j]!=s[index])
     {
@@ -24,14 +24,14 @@ bool wordBoggle(vector<vector<char>> &board, string &s, vector<vector<int>> &vis
     visit[i][j]=1;
     index++;    
     bool flag = false;
-    flag = wordBoggle(board,s,visit,i,j+1,index);
-    flag = flag || wordBoggle(board,s,visit,i+1,j,index);
-    flag = flag || wordBoggle(board,s,visit,i,j-1,index);
-    flag = flag || wordBoggle(board,s,visit,i-1,j,index);
-    flag = flag || wordBoggle(board,s,visit,i+1,j+1,index);
-    flag = flag || wordBoggle(board,s,visit,i+1,j-1,index);
-    flag = flag || wordBoggle(board,s,visit,i-1,j+1,index);
-    flag = flag || wordBoggle(board,s,visit,i-1,j-1,index);
+    flag = helper(board,s,visit,i,j+1,index);
+    flag = flag || helper(board,s,visit,i+1,j,index);
+    flag = flag || helper(board,s,visit,i,j-1,index);
+    flag = flag || helper(board,s,visit,i-1,j,index);
+    flag = flag || helper(board,s,visit,i+1,j+1,index);
+    flag = flag || helper(board,s,visit,i+1,j-1,index);
+    flag = flag || helper(board,s,visit,i-1,j+1,index);
+    flag = flag || helper(board,s,visit,i-1,j-1,index);
     visit[i][j]=0;
     index--;
     return flag;
@@ -51,7 +51,7 @@ int main()
         {
             for(int j=0;!flag && j<board[0].size();j++)
             {
-                if(wordBoggle(board,s,visit,i,j,index))
+                if(helper(board,s,visit,i,j,index))
                 {
                     cout<<s<<endl;
                     exist.push_back(s);
